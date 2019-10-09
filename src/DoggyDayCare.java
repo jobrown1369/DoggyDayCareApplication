@@ -57,11 +57,10 @@ public class DoggyDayCare {
 					System.out.println("Dogs:");
 					System.out.println("1. List All");
 					System.out.println("2. Add");
-					System.out.println("3. Update");
-					System.out.println("4. Delete");
-					System.out.println("5. Find");
-					System.out.println("6. Back");
-					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+					System.out.println("3. Change Diet");
+					System.out.println("4. Show Dietary Restrictions");
+					System.out.println("5. Back");
+					System.out.println("Please enter a selection [1,2,3,4,5]:");
 					subOption = sc.nextInt();
 
 					switch (subOption) {
@@ -82,10 +81,6 @@ public class DoggyDayCare {
 							break;
 						}
 						case 5: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 6: {
 							System.out.println("Back to Main Menu\n");
 							break;
 						}
@@ -108,9 +103,9 @@ public class DoggyDayCare {
 					System.out.println("Owners:");
 					System.out.println("1. List All");
 					System.out.println("2. Add");
-					System.out.println("3. Update");
-					System.out.println("4. Delete");
-					System.out.println("5. Find");
+					System.out.println("3. Show Dogs");
+					System.out.println("4. Update Payment Info");
+					System.out.println("5. Update Phone Number");
 					System.out.println("6. Back");
 					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
 					subOption = sc.nextInt();
@@ -160,11 +155,8 @@ public class DoggyDayCare {
 					System.out.println("Caretakers:");
 					System.out.println("1. List All");
 					System.out.println("2. Add");
-					System.out.println("3. Update");
-					System.out.println("4. Delete");
-					System.out.println("5. Find");
-					System.out.println("6. Back");
-					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+					System.out.println("3. Back");
+					System.out.println("Please enter a selection [1,2,3]:");
 					subOption = sc.nextInt();
 
 					switch (subOption) {
@@ -177,18 +169,6 @@ public class DoggyDayCare {
 							break;
 						}
 						case 3: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 4: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 5: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 6: {
 							System.out.println("Back to Main Menu\n");
 							break;
 						}
@@ -213,10 +193,9 @@ public class DoggyDayCare {
 					System.out.println("1. Clock-in");
 					System.out.println("2. Clock-out");
 					System.out.println("3. Show clocked-in");
-					System.out.println("4. Edit clock-in");
-					System.out.println("5. Delete clock-in");
-					System.out.println("6. Back");
-					System.out.println("Enter your option [1,2,3,4,5,6]:");
+					System.out.println("4. Delete clock-in");
+					System.out.println("5. Back");
+					System.out.println("Enter your option [1,2,3,4,5]:");
 					subOption = sc.nextInt();
 
 					switch (subOption) {
@@ -237,10 +216,6 @@ public class DoggyDayCare {
 							break;
 						}
 						case 5: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 6: {
 							System.out.println("Back to Main Menu\n");
 							break;
 						}
@@ -264,10 +239,11 @@ public class DoggyDayCare {
 					System.out.println("1. Check-In");
 					System.out.println("2. Check-Out");
 					System.out.println("3. Show checked-in");
-					System.out.println("4. Update check-in");
-					System.out.println("5. Delete check-in");
-					System.out.println("6. Back");
-					System.out.println("Enter your option [1,2,3,4,5, 6]:");
+					System.out.println("4. Record Play Time");
+					System.out.println("5. Record Feeding");
+					System.out.println("6. Delete Check-In");
+					System.out.println("7. Back");
+					System.out.println("Enter your option [1,2,3,4,5,6,7]:");
 					subOption = sc.nextInt();
 
 					switch (subOption) {
@@ -292,6 +268,10 @@ public class DoggyDayCare {
 							break;
 						}
 						case 6: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 7: {
 							System.out.println("Back to Main Menu\n");
 							break;
 						}
