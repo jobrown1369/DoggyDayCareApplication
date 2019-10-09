@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.Scanner;
+import java.io.*;
 
 public class DoggyDayCare {
 
@@ -12,98 +13,316 @@ public class DoggyDayCare {
     public static Statement stmt = null;
     public static PreparedStatement pStmt = null;
     public static Connection conn = null;
+    public static String table;
 
-    public static void main(String[] args) {
+    public static void main(String args[]) throws IOException, SQLException {
 
-        DoggyDayCare ddc = new DoggyDayCare();
+		Scanner sc = new Scanner(System.in);
 
-        // read arguments from command line, assign each to a variable
-        String _url = args[0];
-        url = _url;
+		DoggyDayCare ddc = new DoggyDayCare();
 
-        String _driver = args[3];
-        driver = _driver;
+		// read arguments from command line, assign each to a variable
+		String _url = args[0];
+		url = _url;
 
-        String _user = args[1];
-        user = _user;
+		String _driver = args[3];
+		driver = _driver;
 
-        String _pw = args[2];
-        password = _pw;
+		String _user = args[1];
+		user = _user;
 
-        int choice = -1;
+		String _pw = args[2];
+		password = _pw;
 
-        String menu = "\nOption \tFunction";
-        menu += "\n---------------------------";
-        menu += "\n1" + "\tADD DOG";
-        menu += "\n2" + "\tADD OWNER";
-        menu += "\n3" + "\tADD CARETAKER";
-        menu += "\n4" + "\tADD CHECKIN";    //TODO
-        menu += "\n5" + "\tUPDATE CHECKIN PICKUP TIME"; //TODO
-        menu += "\n6" + "\tDELETE DOG"; //TODO
-        menu += "\n7" + "\tDELETE OWNER";   //TODO
-        menu += "\n8" + "\tDELETE CARETAKER";   //TODO
-        menu += "\n9" + "\tUPDATE DOG BREED";
-        menu += "\n10" + "\tQUERY 1: SELECT DOG BY BREED";
-        menu += "\n11" + "\tQUERY 2: DELETE CLOCK IN";
-        menu += "\n12" + "\tQUERY 3: SELECT CHECKIN BY ID";
-        //Add more functions
-        menu += "\n0" + "\tEXIT";
-        Scanner scanner = new Scanner(System.in);
-        while (choice != 0){
-            System.out.println(menu);   //Displays Menu
-            choice = scanner.nextInt();
-            switch (choice){
-                case 1:{
-                    addDog();
-                    break;
-                }
-                case 2:{
-                    addOwner();
-                    break;
-                }
-                case 3:{
-                    addCaretaker();
-                    break;
-                }
-                case 9:{
-                    updateDog();
-                    break;
-                }
-                case 10:{
-                    queryBreed();
-                    break;
-                }
-                case 11: {
-                    deleteClockIn();
-                    break;
-                }
-                case 12:
-                    queryCheckinById();
-                    break;
-            }
+		int option, subOption, subOpt2;
 
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (pStmt != null){
-                    pStmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            }
-            catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-        System.exit(0);
+		do {
+			System.out.println("------Main Menu:-----");
+			System.out.println("\n--Entity Management--");
+			System.out.println("1. Dogs");
+			System.out.println("2. Owners");
+			System.out.println("3. Caretakers");
+			System.out.println("\n---Time Management---");
+			System.out.println("4. Caretaker Clock-In");
+			System.out.println("5. Dog Check-In");
+			System.out.println("\n6. Exit");
+			System.out.println("\nPlease enter a selection [1,2,3,4,5,6]:");
+			option = sc.nextInt();
+
+			switch (option) {
+			case 1: {
+
+				do {
+                                        table = "dog";
+					System.out.println("Dogs:");
+					System.out.println("1. List All");
+					System.out.println("2. Add");
+					System.out.println("3. Update");
+					System.out.println("4. Delete");
+					System.out.println("5. Find");
+					System.out.println("6. Back");
+					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+					subOption = sc.nextInt();
+
+					switch (subOption) {
+						case 1: {
+							showTable(table);
+							break;
+						}
+						case 2: {
+							addDog();
+							break;
+						}
+						case 3: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 4: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 5: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 6: {
+							System.out.println("Back to Main Menu\n");
+							break;
+						}
+
+						default: {
+							System.out.println("Invalid selection; please select 1-6:\n");
+							continue;
+						}
+					}
+				} while (subOption != 6);
+				break;
+			}
+
+			case 2:
+
+			{
+
+				do {
+                                        table = "owner";
+					System.out.println("Owners:");
+					System.out.println("1. List All");
+					System.out.println("2. Add");
+					System.out.println("3. Update");
+					System.out.println("4. Delete");
+					System.out.println("5. Find");
+					System.out.println("6. Back");
+					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+					subOption = sc.nextInt();
+
+					switch (subOption) {
+						case 1: {
+							showTable(table);
+							break;
+						}
+						case 2: {
+							addOwner();
+							break;
+						}
+						case 3: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 4: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 5: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 6: {
+							System.out.println("Back to Main Menu\n");
+							break;
+						}
+
+						default: {
+							System.out.println("Invalid selection; please select 1-6:\n");
+							continue;
+						}
+					// option = sc.nextInt();
+					}
+				} while (subOption != 6);
+				break;
+			}
+
+			case 3:
+
+			{
+
+				do {
+                                        table = "caretaker";
+					System.out.println("Caretakers:");
+					System.out.println("1. List All");
+					System.out.println("2. Add");
+					System.out.println("3. Update");
+					System.out.println("4. Delete");
+					System.out.println("5. Find");
+					System.out.println("6. Back");
+					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+					subOption = sc.nextInt();
+
+					switch (subOption) {
+						case 1: {
+							showTable(table);
+							break;
+						}
+						case 2: {
+							addCaretaker();
+							break;
+						}
+						case 3: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 4: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 5: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 6: {
+							System.out.println("Back to Main Menu\n");
+							break;
+						}
+
+						default: {
+							System.out.println("Invalid selection; please select 1-6:\n");
+							continue;
+						}
+					// option = sc.nextInt();
+					}
+				} while (subOption != 6);
+				break;
+			}
+
+			case 4:
+
+			{
+
+				do {
+                                        table = "clock_in";
+					System.out.println("Clock-In:");
+					System.out.println("1. Clock-in");
+					System.out.println("2. Clock-out");
+					System.out.println("3. Show clocked-in");
+					System.out.println("4. Edit clock-in");
+					System.out.println("5. Delete clock-in");
+					System.out.println("6. Back");
+					System.out.println("Enter your option [1,2,3,4,5,6]:");
+					subOption = sc.nextInt();
+
+					switch (subOption) {
+						case 1: {
+							clockIn();
+							break;
+						}
+						case 2: {
+							clockOut();
+							break;
+						}
+						case 3: {
+							showTable(table);
+							break;
+						}
+						case 4: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 5: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 6: {
+							System.out.println("Back to Main Menu\n");
+							break;
+						}
+
+						default: {
+							System.out.println("Invalid selection; please select 1-6:\n");
+							continue;
+						}
+					// option = sc.nextInt();
+					}
+				} while (subOption != 6);
+				break;
+
+			}
+
+			case 5: {
+
+				do {
+                                        table = "check_in";
+					System.out.println("Dog Check-in:");
+					System.out.println("1. Check-In");
+					System.out.println("2. Check-Out");
+					System.out.println("3. Show checked-in");
+					System.out.println("4. Update check-in");
+					System.out.println("5. Delete check-in");
+					System.out.println("6. Back");
+					System.out.println("Enter your option [1,2,3,4,5, 6]:");
+					subOption = sc.nextInt();
+
+					switch (subOption) {
+						case 1: {
+							checkIn();
+							break;
+						}
+						case 2: {
+							checkOut();
+							break;
+						}
+						case 3: {
+							showTable(table);
+							break;
+						}
+						case 4: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 5: {
+							System.out.println("Needs implemented\n");
+							break;
+						}
+						case 6: {
+							System.out.println("Back to Main Menu\n");
+							break;
+						}
+
+						default: {
+							System.out.println("Invalid selection; please select 1-6:\n");
+							continue;
+						}
+					// option = sc.nextInt();
+					}
+				} while (subOption != 6);
+				break;
+
+			}
+
+			case 6: {
+				System.out.println("Shutting down\n");
+				System.exit(0);
+				break;
+			}
+
+                        default: {
+				System.out.println("Invalid selection; please select 1-6:\n");
+				continue;
+			}
+
+		} 
+            } while (option != 6);
     }
-
-    //Adds dog to the database by asking User for Information
+    
+        //Adds dog to the database by asking User for Information
     public static void addDog(){
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Dog Name: ");
@@ -114,10 +333,10 @@ public class DoggyDayCare {
         String gender = input.next();
         System.out.print("Special Diet? (Enter T for True, F for False): ");
         String diet = input.next();
-        System.out.print("Enter Dog Breed");
+        System.out.print("Enter Dog Breed: ");
         String breed = input.next();
-        System.out.print("Enter K9 ID: ");
-        int k9Id = input.nextInt();
+        //System.out.print("Enter K9 ID: ");
+        int k9Id = 0;
         System.out.print("Enter Dog Owner ID: ");
         int ownerId = input.nextInt();
         System.out.print("Enter Reg-Date (YYYY-MM-DD): ");
@@ -141,7 +360,7 @@ public class DoggyDayCare {
             else
                 pStmt.setString(8,"Normal");
             if(pStmt.executeUpdate() > 0){
-                System.out.println("Success");
+                System.out.println("Success\n");
             }
             pStmt.clearParameters();
             conn.commit();
@@ -156,8 +375,7 @@ public class DoggyDayCare {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Owner Name: ");
         String name = input.nextLine();
-        System.out.print("Enter Owner ID: ");
-        int ownerId = input.nextInt();
+        int ownerId = 0;
         System.out.print("Enter Email: ");
         String email = input.next();
         System.out.print("Enter Phone Number: ");
@@ -174,7 +392,7 @@ public class DoggyDayCare {
             pStmt.setString(4,phone);
             pStmt.setString(5,creditCard);
             if(pStmt.executeUpdate() > 0){
-                System.out.println("Success");
+                System.out.println("Success\n");
             }
             pStmt.clearParameters();
             conn.commit();
@@ -190,8 +408,7 @@ public class DoggyDayCare {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Caretaker Name: ");
         String name = input.nextLine();
-        System.out.print("Enter Employee ID: ");
-        int empId = input.nextInt();
+        int empId = 0;
         System.out.print("Enter hire date (YYYY-MM-DD): ");
         String hireDate = input.next();
 
@@ -203,7 +420,7 @@ public class DoggyDayCare {
             pStmt.setString(2,name);
             pStmt.setString(3,hireDate);
             if(pStmt.executeUpdate() > 0){
-                System.out.println("Success");
+                System.out.println("Success\n");
             }
             pStmt.clearParameters();
             conn.commit();
@@ -213,6 +430,65 @@ public class DoggyDayCare {
         }
     }
 
+    // Method to display contents of a table
+    // Recieves table name from Menu selection
+    public static void showTable(String table) throws SQLException {
+
+        try {
+            // Load JDBC driver
+            Class.forName(driver);
+            
+            //Prepare the statement
+            String qry;
+            if (table.equals("clock_in")){                
+                String qryIn = "SELECT * FROM $tableName WHERE clock_out is null";
+                qry = qryIn.replace("$tableName", table);
+            }
+            else if (table.equals("check_in")){
+                String qryIn = "SELECT * FROM $tableName WHERE pickup_time is null";
+                qry = qryIn.replace("$tableName", table);
+            }
+            else {
+                String qryIn = "SELECT * FROM $tableName";
+                qry = qryIn.replace("$tableName", table);
+            }
+            
+            // Make a connection
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            // Create a statement and a query
+            pStmt = conn.prepareStatement(qry);
+            rs = pStmt.executeQuery();
+            
+            //Identify columns and display column headers
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numColumns = metaData.getColumnCount();
+            for (int i=1; i <= numColumns; i++){
+                System.out.print("|" + metaData.getColumnLabel(i) + "\t");
+            }
+            System.out.println("");
+            
+            // Display the query results
+            while (rs.next()) {
+                    for (int i=1; i <= numColumns; i++) {
+                            Object obj = rs.getObject(i);
+                            if (obj != null)
+                                    System.out.print("|" + rs.getObject(i).toString() + "\t");
+                            else
+                                System.out.print("|[...]\t");
+                    }
+                    System.out.println();
+            }
+            System.out.println("\n");
+            pStmt.clearParameters();
+            
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+    
     // Method to update our dog table
     // Updates any tuples where the breed is "Poodle" to the breed "Labrador"
     public static void updateDog() {
@@ -268,13 +544,13 @@ public class DoggyDayCare {
                         rs.getString("name") + " " + rs.getInt("age") + " " +
                         rs.getString("gender") + " " + rs.getDate("reg_date") + " "
                         + rs.getString("breed") + " " + rs.getString("diet"));
+            System.out.println();
         }
         catch (Exception e) {
             System.out.println(e);
         }
 
     }
-
 
     // Method that deletes a tuple from the clock_in table in the database
     public static void deleteClockIn() {
@@ -311,12 +587,107 @@ public class DoggyDayCare {
             while (rs.next())
                 System.out.println(rs.getDate("clock_in") + " " + rs.getInt("Employee_ID") + " " +
                         rs.getInt("Room_Number") + " " + rs.getDate("clock_out"));
+            System.out.println();
     }
         catch (Exception e) {
         System.out.println(e);
     }
     }
 
+    //Method for caretaker clock-in
+    public static void clockIn(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter Caretaker ID: ");
+        int id = input.nextInt();
+        System.out.print("Enter Room Number: ");
+        String room = input.next();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("INSERT INTO clock_in VALUE(current_time(),?,?,null)");
+            pStmt.setInt(1,id);
+            pStmt.setString(2,room);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
+    
+    //Method for caretaker clock-out
+    public static void clockOut(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter Caretaker ID: ");
+        int id = input.nextInt();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("UPDATE clock_in SET clock_out = current_time() where Employee_ID = ? AND clock_out is null");
+            pStmt.setInt(1,id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
+    
+    //Method for dog check-in
+    public static void checkIn(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter K9 ID: ");
+        int id = input.nextInt();
+        System.out.print("Enter Room Number: ");
+        String room = input.next();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("INSERT INTO check_in VALUE(0,?,?,null,current_timestamp(),null,null)");
+            pStmt.setInt(1,id);
+            pStmt.setString(2,room);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
+    
+        //Method for dog check-out
+    public static void checkOut(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter K9 ID: ");
+        int id = input.nextInt();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("UPDATE check_in SET pickup_time = current_time() where K9_ID = ? AND pickup_time is null");
+            pStmt.setInt(1,id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
+    
     // Method that takes an argument and queries the database
     public static void queryBreed() {
         Scanner input = new Scanner(System.in);
@@ -342,6 +713,7 @@ public class DoggyDayCare {
                 System.out.print(rs.getString("name") + "\t");
                 System.out.println(rs.getString("breed" + "\t"));
             }
+            System.out.println();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -376,6 +748,7 @@ public class DoggyDayCare {
                 System.out.print(rs.getString("DROP_TIME")+ "\t");
                 System.out.println(rs.getString("PICKUP_TIME") + "\t");
             }
+            System.out.println();
         }
         catch (Exception e) {
             System.out.println(e);
