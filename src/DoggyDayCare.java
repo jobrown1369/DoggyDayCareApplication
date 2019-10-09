@@ -17,292 +17,292 @@ public class DoggyDayCare {
 
     public static void main(String args[]) throws IOException, SQLException {
 
-		Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-		DoggyDayCare ddc = new DoggyDayCare();
+        DoggyDayCare ddc = new DoggyDayCare();
 
-		// read arguments from command line, assign each to a variable
-		String _url = args[0];
-		url = _url;
+        // read arguments from command line, assign each to a variable
+        String _url = args[0];
+        url = _url;
 
-		String _driver = args[3];
-		driver = _driver;
+        String _driver = args[3];
+        driver = _driver;
 
-		String _user = args[1];
-		user = _user;
+        String _user = args[1];
+        user = _user;
 
-		String _pw = args[2];
-		password = _pw;
+        String _pw = args[2];
+        password = _pw;
 
-		int option, subOption, subOpt2;
+        int option, subOption, subOpt2;
 
-		do {
-			System.out.println("------Main Menu:-----");
-			System.out.println("\n--Entity Management--");
-			System.out.println("1. Dogs");
-			System.out.println("2. Owners");
-			System.out.println("3. Caretakers");
-			System.out.println("\n---Time Management---");
-			System.out.println("4. Caretaker Clock-In");
-			System.out.println("5. Dog Check-In");
-			System.out.println("\n6. Exit");
-			System.out.println("\nPlease enter a selection [1,2,3,4,5,6]:");
-			option = sc.nextInt();
+        do {
+            System.out.println("------Main Menu:-----");
+            System.out.println("\n--Entity Management--");
+            System.out.println("1. Dogs");
+            System.out.println("2. Owners");
+            System.out.println("3. Caretakers");
+            System.out.println("\n---Time Management---");
+            System.out.println("4. Caretaker Clock-In");
+            System.out.println("5. Dog Check-In");
+            System.out.println("\n6. Exit");
+            System.out.println("\nPlease enter a selection [1,2,3,4,5,6]:");
+            option = sc.nextInt();
 
-			switch (option) {
-			case 1: {
+            switch (option) {
+                case 1: {
 
-				do {
-                                        table = "dog";
-					System.out.println("Dogs:");
-					System.out.println("1. List All");
-					System.out.println("2. Add");
-					System.out.println("3. Change Diet");
-					System.out.println("4. Show Dietary Restrictions");
-					System.out.println("5. Back");
-					System.out.println("Please enter a selection [1,2,3,4,5]:");
-					subOption = sc.nextInt();
+                    do {
+                        table = "dog";
+                        System.out.println("Dogs:");
+                        System.out.println("1. List All");
+                        System.out.println("2. Add");
+                        System.out.println("3. Change Diet");
+                        System.out.println("4. Show Dietary Restrictions");
+                        System.out.println("5. Back");
+                        System.out.println("Please enter a selection [1,2,3,4,5]:");
+                        subOption = sc.nextInt();
 
-					switch (subOption) {
-						case 1: {
-							showTable(table);
-							break;
-						}
-						case 2: {
-							addDog();
-							break;
-						}
-						case 3: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 4: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 5: {
-							System.out.println("Back to Main Menu\n");
-							break;
-						}
+                        switch (subOption) {
+                            case 1: {
+                                showTable(table);
+                                break;
+                            }
+                            case 2: {
+                                addDog();
+                                break;
+                            }
+                            case 3: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 4: {
+                                dietaryRestrictions();
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("Back to Main Menu\n");
+                                break;
+                            }
 
-						default: {
-							System.out.println("Invalid selection; please select 1-6:\n");
-							continue;
-						}
-					}
-				} while (subOption != 6);
-				break;
-			}
+                            default: {
+                                System.out.println("Invalid selection; please select 1-6:\n");
+                                continue;
+                            }
+                        }
+                    } while (subOption != 5);
+                    break;
+                }
 
-			case 2:
+                case 2:
 
-			{
+                {
 
-				do {
-                                        table = "owner";
-					System.out.println("Owners:");
-					System.out.println("1. List All");
-					System.out.println("2. Add");
-					System.out.println("3. Show Dogs");
-					System.out.println("4. Update Payment Info");
-					System.out.println("5. Update Phone Number");
-					System.out.println("6. Back");
-					System.out.println("Please enter a selection [1,2,3,4,5,6]:");
-					subOption = sc.nextInt();
+                    do {
+                        table = "owner";
+                        System.out.println("Owners:");
+                        System.out.println("1. List All");
+                        System.out.println("2. Add");
+                        System.out.println("3. Show Dogs");
+                        System.out.println("4. Update Payment Info");
+                        System.out.println("5. Update Phone Number");
+                        System.out.println("6. Back");
+                        System.out.println("Please enter a selection [1,2,3,4,5,6]:");
+                        subOption = sc.nextInt();
 
-					switch (subOption) {
-						case 1: {
-							showTable(table);
-							break;
-						}
-						case 2: {
-							addOwner();
-							break;
-						}
-						case 3: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 4: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 5: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 6: {
-							System.out.println("Back to Main Menu\n");
-							break;
-						}
+                        switch (subOption) {
+                            case 1: {
+                                showTable(table);
+                                break;
+                            }
+                            case 2: {
+                                addOwner();
+                                break;
+                            }
+                            case 3: {
+                                showDogs();
+                                break;
+                            }
+                            case 4: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 6: {
+                                System.out.println("Back to Main Menu\n");
+                                break;
+                            }
 
-						default: {
-							System.out.println("Invalid selection; please select 1-6:\n");
-							continue;
-						}
-					// option = sc.nextInt();
-					}
-				} while (subOption != 6);
-				break;
-			}
+                            default: {
+                                System.out.println("Invalid selection; please select 1-6:\n");
+                                continue;
+                            }
+                            // option = sc.nextInt();
+                        }
+                    } while (subOption != 6);
+                    break;
+                }
 
-			case 3:
+                case 3:
 
-			{
+                {
 
-				do {
-                                        table = "caretaker";
-					System.out.println("Caretakers:");
-					System.out.println("1. List All");
-					System.out.println("2. Add");
-					System.out.println("3. Back");
-					System.out.println("Please enter a selection [1,2,3]:");
-					subOption = sc.nextInt();
+                    do {
+                        table = "caretaker";
+                        System.out.println("Caretakers:");
+                        System.out.println("1. List All");
+                        System.out.println("2. Add");
+                        System.out.println("3. Back");
+                        System.out.println("Please enter a selection [1,2,3]:");
+                        subOption = sc.nextInt();
 
-					switch (subOption) {
-						case 1: {
-							showTable(table);
-							break;
-						}
-						case 2: {
-							addCaretaker();
-							break;
-						}
-						case 3: {
-							System.out.println("Back to Main Menu\n");
-							break;
-						}
+                        switch (subOption) {
+                            case 1: {
+                                showTable(table);
+                                break;
+                            }
+                            case 2: {
+                                addCaretaker();
+                                break;
+                            }
+                            case 3: {
+                                System.out.println("Back to Main Menu\n");
+                                break;
+                            }
 
-						default: {
-							System.out.println("Invalid selection; please select 1-6:\n");
-							continue;
-						}
-					// option = sc.nextInt();
-					}
-				} while (subOption != 6);
-				break;
-			}
+                            default: {
+                                System.out.println("Invalid selection; please select 1-6:\n");
+                                continue;
+                            }
+                            // option = sc.nextInt();
+                        }
+                    } while (subOption != 3);
+                    break;
+                }
 
-			case 4:
+                case 4:
 
-			{
+                {
 
-				do {
-                                        table = "clock_in";
-					System.out.println("Clock-In:");
-					System.out.println("1. Clock-in");
-					System.out.println("2. Clock-out");
-					System.out.println("3. Show clocked-in");
-					System.out.println("4. Delete clock-in");
-					System.out.println("5. Back");
-					System.out.println("Enter your option [1,2,3,4,5]:");
-					subOption = sc.nextInt();
+                    do {
+                        table = "clock_in";
+                        System.out.println("Clock-In:");
+                        System.out.println("1. Clock-in");
+                        System.out.println("2. Clock-out");
+                        System.out.println("3. Show clocked-in");
+                        System.out.println("4. Delete clock-in");
+                        System.out.println("5. Back");
+                        System.out.println("Enter your option [1,2,3,4,5]:");
+                        subOption = sc.nextInt();
 
-					switch (subOption) {
-						case 1: {
-							clockIn();
-							break;
-						}
-						case 2: {
-							clockOut();
-							break;
-						}
-						case 3: {
-							showTable(table);
-							break;
-						}
-						case 4: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 5: {
-							System.out.println("Back to Main Menu\n");
-							break;
-						}
+                        switch (subOption) {
+                            case 1: {
+                                clockIn();
+                                break;
+                            }
+                            case 2: {
+                                clockOut();
+                                break;
+                            }
+                            case 3: {
+                                showTable(table);
+                                break;
+                            }
+                            case 4: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("Back to Main Menu\n");
+                                break;
+                            }
 
-						default: {
-							System.out.println("Invalid selection; please select 1-6:\n");
-							continue;
-						}
-					// option = sc.nextInt();
-					}
-				} while (subOption != 6);
-				break;
+                            default: {
+                                System.out.println("Invalid selection; please select 1-6:\n");
+                                continue;
+                            }
+                            // option = sc.nextInt();
+                        }
+                    } while (subOption != 5);
+                    break;
 
-			}
+                }
 
-			case 5: {
+                case 5: {
 
-				do {
-                                        table = "check_in";
-					System.out.println("Dog Check-in:");
-					System.out.println("1. Check-In");
-					System.out.println("2. Check-Out");
-					System.out.println("3. Show checked-in");
-					System.out.println("4. Record Play Time");
-					System.out.println("5. Record Feeding");
-					System.out.println("6. Delete Check-In");
-					System.out.println("7. Back");
-					System.out.println("Enter your option [1,2,3,4,5,6,7]:");
-					subOption = sc.nextInt();
+                    do {
+                        table = "check_in";
+                        System.out.println("Dog Check-in:");
+                        System.out.println("1. Check-In");
+                        System.out.println("2. Check-Out");
+                        System.out.println("3. Show checked-in");
+                        System.out.println("4. Record Play Time");
+                        System.out.println("5. Record Feeding");
+                        System.out.println("6. Delete Check-In");
+                        System.out.println("7. Back");
+                        System.out.println("Enter your option [1,2,3,4,5,6,7]:");
+                        subOption = sc.nextInt();
 
-					switch (subOption) {
-						case 1: {
-							checkIn();
-							break;
-						}
-						case 2: {
-							checkOut();
-							break;
-						}
-						case 3: {
-							showTable(table);
-							break;
-						}
-						case 4: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 5: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 6: {
-							System.out.println("Needs implemented\n");
-							break;
-						}
-						case 7: {
-							System.out.println("Back to Main Menu\n");
-							break;
-						}
+                        switch (subOption) {
+                            case 1: {
+                                checkIn();
+                                break;
+                            }
+                            case 2: {
+                                checkOut();
+                                break;
+                            }
+                            case 3: {
+                                showTable(table);
+                                break;
+                            }
+                            case 4: {
+                                recordPlaytime();
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 6: {
+                                System.out.println("Needs implemented\n");
+                                break;
+                            }
+                            case 7: {
+                                System.out.println("Back to Main Menu\n");
+                                break;
+                            }
 
-						default: {
-							System.out.println("Invalid selection; please select 1-6:\n");
-							continue;
-						}
-					// option = sc.nextInt();
-					}
-				} while (subOption != 6);
-				break;
+                            default: {
+                                System.out.println("Invalid selection; please select 1-6:\n");
+                                continue;
+                            }
+                            // option = sc.nextInt();
+                        }
+                    } while (subOption != 7);
+                    break;
 
-			}
+                }
 
-			case 6: {
-				System.out.println("Shutting down\n");
-				System.exit(0);
-				break;
-			}
+                case 6: {
+                    System.out.println("Shutting down\n");
+                    System.exit(0);
+                    break;
+                }
 
-                        default: {
-				System.out.println("Invalid selection; please select 1-6:\n");
-				continue;
-			}
+                default: {
+                    System.out.println("Invalid selection; please select 1-6:\n");
+                    continue;
+                }
 
-		} 
-            } while (option != 6);
+            }
+        } while (option != 6);
     }
-    
-        //Adds dog to the database by asking User for Information
+
+    //Adds dog to the database by asking User for Information
     public static void addDog(){
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Dog Name: ");
@@ -347,6 +347,92 @@ public class DoggyDayCare {
 
         } catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+    // Shows the dogs owned by an Owner, for which the user inputs an Owner_ID
+    public static void showDogs() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter Owner ID: ");
+        int ownerId = input.nextInt();
+
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            pStmt = conn.prepareStatement("SELECT d.name, d.age, d.breed, d.diet FROM dog d, owner o WHERE o.Owner_ID=? and d.Owner_ID = o.Owner_ID");
+            pStmt.setInt(1, ownerId);
+            rs = pStmt.executeQuery();
+
+            //Identify columns and display column headers
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numColumns = metaData.getColumnCount();
+            for (int i=1; i <= numColumns; i++){
+                System.out.print("|" + metaData.getColumnLabel(i) + "\t");
+            }
+            System.out.println("");
+
+            while (rs.next()) {
+                System.out.println("|" + rs.getString("name") + "\t" + "|" + rs.getInt("age") + "\t|" +
+                        "|" + rs.getString("breed") + "|" + rs.getString("diet") + "\t");
+            }
+            pStmt.clearParameters();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Shows all the dogs that have dietary restrictions
+    public static void dietaryRestrictions() {
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT d.name, d.age, d.breed, d.diet FROM dog d WHERE d.diet = 'Special'");
+
+            //Identify columns and display column headers
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numColumns = metaData.getColumnCount();
+            for (int i=1; i <= numColumns; i++){
+                System.out.print("|" + metaData.getColumnLabel(i) + "\t");
+            }
+            System.out.println("");
+
+            while (rs.next()) {
+                System.out.println("|" + rs.getString("name") + "\t" + "|" + rs.getInt("age") + "\t|" +
+                        "|" + rs.getString("breed") + "|" + rs.getString("diet") + "\t");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Adds playtime to a dog's check-in
+    public static void recordPlaytime() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter K9_ID for the dog whose playtime you would like to update: ");
+        int k9_id = input.nextInt();
+        System.out.print("Enter the amount of playtime: ");
+        int playTime = input.nextInt();
+
+        try {
+            // Load JDBC driver
+            Class.forName(driver);
+
+            // Make a connection
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+
+            // Create a statement and an update query
+            pStmt = conn.prepareStatement("update check_in c set c.play_time = ? where c.K9_ID = ?;");
+            pStmt.setInt(1,playTime);
+            pStmt.setInt(2,k9_id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success.");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+        }
+        catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -417,10 +503,10 @@ public class DoggyDayCare {
         try {
             // Load JDBC driver
             Class.forName(driver);
-            
+
             //Prepare the statement
             String qry;
-            if (table.equals("clock_in")){                
+            if (table.equals("clock_in")){
                 String qryIn = "SELECT * FROM $tableName WHERE clock_out is null";
                 qry = qryIn.replace("$tableName", table);
             }
@@ -432,14 +518,14 @@ public class DoggyDayCare {
                 String qryIn = "SELECT * FROM $tableName";
                 qry = qryIn.replace("$tableName", table);
             }
-            
+
             // Make a connection
             conn = DriverManager.getConnection(url, user, password);
             conn.setAutoCommit(false);
             // Create a statement and a query
             pStmt = conn.prepareStatement(qry);
             rs = pStmt.executeQuery();
-            
+
             //Identify columns and display column headers
             ResultSetMetaData metaData = rs.getMetaData();
             int numColumns = metaData.getColumnCount();
@@ -447,28 +533,28 @@ public class DoggyDayCare {
                 System.out.print("|" + metaData.getColumnLabel(i) + "\t");
             }
             System.out.println("");
-            
+
             // Display the query results
             while (rs.next()) {
-                    for (int i=1; i <= numColumns; i++) {
-                            Object obj = rs.getObject(i);
-                            if (obj != null)
-                                    System.out.print("|" + rs.getObject(i).toString() + "\t");
-                            else
-                                System.out.print("|[...]\t");
-                    }
-                    System.out.println();
+                for (int i=1; i <= numColumns; i++) {
+                    Object obj = rs.getObject(i);
+                    if (obj != null)
+                        System.out.print("|" + rs.getObject(i).toString() + "\t");
+                    else
+                        System.out.print("|[...]\t");
+                }
+                System.out.println();
             }
             System.out.println("\n");
             pStmt.clearParameters();
-            
+
         }
         catch (Exception e) {
             System.out.println(e);
         }
 
     }
-    
+
     // Method to update our dog table
     // Updates any tuples where the breed is "Poodle" to the breed "Labrador"
     public static void updateDog() {
@@ -498,7 +584,7 @@ public class DoggyDayCare {
                 System.out.println(rs.getInt("K9_ID") + " " + rs.getInt("Owner_ID") + " " +
                         rs.getString("name") + " " + rs.getInt("age") + " " +
                         rs.getString("gender") + " " + rs.getDate("reg_date") + " "
-                + rs.getString("breed") + " " + rs.getString("diet"));
+                        + rs.getString("breed") + " " + rs.getString("diet"));
             System.out.println();
 
             pStmt.clearParameters();
@@ -568,10 +654,10 @@ public class DoggyDayCare {
                 System.out.println(rs.getDate("clock_in") + " " + rs.getInt("Employee_ID") + " " +
                         rs.getInt("Room_Number") + " " + rs.getDate("clock_out"));
             System.out.println();
-    }
+        }
         catch (Exception e) {
-        System.out.println(e);
-    }
+            System.out.println(e);
+        }
     }
 
     //Method for caretaker clock-in
@@ -598,7 +684,7 @@ public class DoggyDayCare {
         }
 
     }
-    
+
     //Method for caretaker clock-out
     public static void clockOut(){
         Scanner input = new Scanner(System.in);
@@ -620,7 +706,7 @@ public class DoggyDayCare {
         }
 
     }
-    
+
     //Method for dog check-in
     public static void checkIn(){
         Scanner input = new Scanner(System.in);
@@ -645,8 +731,8 @@ public class DoggyDayCare {
         }
 
     }
-    
-        //Method for dog check-out
+
+    //Method for dog check-out
     public static void checkOut(){
         Scanner input = new Scanner(System.in);
         System.out.print("Enter K9 ID: ");
@@ -667,7 +753,7 @@ public class DoggyDayCare {
         }
 
     }
-    
+
     // Method that takes an argument and queries the database
     public static void queryBreed() {
         Scanner input = new Scanner(System.in);
@@ -715,7 +801,7 @@ public class DoggyDayCare {
 
             // Create a statement and make a query with a prepared statement
             pStmt = conn.prepareStatement("select d.name, c.room_number, c.drop_time, c.pickup_time FROM check_in c," +
-                            "dog d WHERE c.k9_id = d.k9_id AND c.check_in_id = ?;");
+                    "dog d WHERE c.k9_id = d.k9_id AND c.check_in_id = ?;");
             pStmt.setInt(1, id);
             rs = pStmt.executeQuery();
 
