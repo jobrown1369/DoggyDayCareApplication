@@ -1,3 +1,5 @@
+import com.sun.javafx.image.BytePixelSetter;
+
 import java.sql.*;
 import java.util.Scanner;
 import java.io.*;
@@ -73,7 +75,7 @@ public class DoggyDayCare {
                                 break;
                             }
                             case 3: {
-                                System.out.println("Needs implemented\n");
+                                updateDogDiet();
                                 break;
                             }
                             case 4: {
@@ -124,11 +126,11 @@ public class DoggyDayCare {
                                 break;
                             }
                             case 4: {
-                                System.out.println("Needs implemented\n");
+                                updatePaymentInfo();
                                 break;
                             }
                             case 5: {
-                                System.out.println("Needs implemented\n");
+                                updatePhoneNumber();
                                 break;
                             }
                             case 6: {
@@ -289,7 +291,6 @@ public class DoggyDayCare {
 
                 case 6: {
                     System.out.println("Shutting down\n");
-                    System.exit(0);
                     break;
                 }
 
@@ -299,7 +300,26 @@ public class DoggyDayCare {
                 }
 
             }
+            //Closes resources after every call
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (pStmt != null){
+                    pStmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            }
+            catch (SQLException se) {
+                se.printStackTrace();
+            }
         } while (option != 6);
+        System.exit(0); //Exits
     }
 
     //Adds dog to the database by asking User for Information
@@ -530,7 +550,7 @@ public class DoggyDayCare {
             ResultSetMetaData metaData = rs.getMetaData();
             int numColumns = metaData.getColumnCount();
             for (int i=1; i <= numColumns; i++){
-                System.out.print("|" + metaData.getColumnLabel(i) + "\t");
+                System.out.print(metaData.getColumnLabel(i) + "\t");
             }
             System.out.println("");
 
@@ -539,9 +559,9 @@ public class DoggyDayCare {
                 for (int i=1; i <= numColumns; i++) {
                     Object obj = rs.getObject(i);
                     if (obj != null)
-                        System.out.print("|" + rs.getObject(i).toString() + "\t");
+                        System.out.print(rs.getObject(i).toString() + "\t");
                     else
-                        System.out.print("|[...]\t");
+                        System.out.print("[...]\t");
                 }
                 System.out.println();
             }
@@ -557,12 +577,16 @@ public class DoggyDayCare {
 
     // Method to update our dog table
     // Updates any tuples where the breed is "Poodle" to the breed "Labrador"
-    public static void updateDog() {
+    public static void updateDogDiet() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter Breed to Update: ");
-        String updateBreed = input.next();
-        System.out.print("Enter New Breed: ");
-        String newBreed = input.next();
+        System.out.print("Enter K9 ID to Update: ");
+        int dogID = input.nextInt();
+        System.out.print("Enter S for Special Diet, N for Normal Diet: ");
+        String diet = "";
+        if (input.next().equalsIgnoreCase("S"))
+            diet = "Special";
+        else
+            diet = "Normal";
 
         try {
             // Load JDBC driver
@@ -572,44 +596,42 @@ public class DoggyDayCare {
             conn = DriverManager.getConnection(url, user, password);
             conn.setAutoCommit(false);
             // Create a statement and a query
-            pStmt = conn.prepareStatement("select d.* from dog d where d.breed = ?");
-            pStmt.setString(1, newBreed);
+            pStmt = conn.prepareStatement("select d.k9_id, d.name, d.diet from dog d where d.k9_id = ?");
+            pStmt.setInt(1, dogID);
             rs = pStmt.executeQuery();
 
             // Display the query results
             System.out.println("Before update: ");
             System.out.println();
-
+            System.out.println("K9_ID\t" + "Name\t" + "Diet\t");
             while (rs.next())
-                System.out.println(rs.getInt("K9_ID") + " " + rs.getInt("Owner_ID") + " " +
-                        rs.getString("name") + " " + rs.getInt("age") + " " +
-                        rs.getString("gender") + " " + rs.getDate("reg_date") + " "
-                        + rs.getString("breed") + " " + rs.getString("diet"));
+                System.out.println(rs.getInt("K9_ID") + "\t" +
+                        rs.getString("name") + "\t"+ rs.getString("diet"));
             System.out.println();
 
             pStmt.clearParameters();
             // Create a statement and an update query
-            pStmt = conn.prepareStatement("update dog d set d.breed = ? where d.breed = ?;");
-            pStmt.setString(1,newBreed);
-            pStmt.setString(2,updateBreed);
+            pStmt = conn.prepareStatement("update dog d set d.diet = ? where d.k9_id = ?;");
+            pStmt.setString(1,diet);
+            pStmt.setInt(2,dogID);
+
             if(pStmt.executeUpdate() > 0){
                 System.out.println("Success.");
             }
             pStmt.clearParameters();
             conn.commit();
             // Display the query results of the updated table
-            pStmt = conn.prepareStatement("select d.* from dog d where d.breed = ?");
-            pStmt.setString(1,newBreed);
+            pStmt = conn.prepareStatement("select d.k9_id, d.name, d.diet from dog d where d.k9_id = ?");
+            pStmt.setInt(1, dogID);
             rs = pStmt.executeQuery();
 
             System.out.println("After update: ");
             System.out.println();
 
+            System.out.println("K9_ID\t" + "Name\t" + "Diet\t");
             while (rs.next())
-                System.out.println(rs.getInt("K9_ID") + " " + rs.getInt("Owner_ID") + " " +
-                        rs.getString("name") + " " + rs.getInt("age") + " " +
-                        rs.getString("gender") + " " + rs.getDate("reg_date") + " "
-                        + rs.getString("breed") + " " + rs.getString("diet"));
+                System.out.println(rs.getInt("K9_ID") + "\t"+
+                        rs.getString("name") + "\t" + rs.getString("diet"));
             System.out.println();
         }
         catch (Exception e) {
@@ -754,39 +776,6 @@ public class DoggyDayCare {
 
     }
 
-    // Method that takes an argument and queries the database
-    public static void queryBreed() {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter Breed: ");
-        String breed = input.next();
-        try {
-            // Load JDBC driver
-            Class.forName(driver);
-
-            // Make a connection
-            conn = DriverManager.getConnection(url, user, password);
-
-            // Create a statement and make a query with a prepared statement
-            pStmt = conn.prepareStatement("select d.K9_ID, d.name, d.breed from dog d where d.breed = ?");
-            pStmt.setString(1, breed);
-            rs = pStmt.executeQuery();
-
-            // Display the results
-            System.out.println("K9_ID" + "\tNAME" + "\tBREED");
-            System.out.println("-----------------------------");
-            while (rs.next()) {
-                System.out.print(rs.getInt("K9_ID") + "\t");
-                System.out.print(rs.getString("name") + "\t");
-                System.out.println(rs.getString("breed" + "\t"));
-            }
-            System.out.println();
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
     //Querys Check_In table by a check_in ID
     public static void queryCheckinById(){
         Scanner input = new Scanner(System.in);
@@ -818,6 +807,54 @@ public class DoggyDayCare {
         }
         catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public static void updatePaymentInfo(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter OWNER ID: ");
+        int id = input.nextInt();
+        System.out.print("Enter New Credit Card Number: ");
+        String ccNumber = input.next();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("UPDATE owner SET credit_card_nbr =? where OWNER_ID = ?");
+            pStmt.setString(1, ccNumber);
+            pStmt.setInt(2,id);
+
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public static void updatePhoneNumber(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter OWNER ID: ");
+        int id = input.nextInt();
+        System.out.print("Enter New Phone Number: ");
+        String phoneNumber = input.next();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("UPDATE owner SET phone =? where OWNER_ID = ?");
+            pStmt.setString(1, phoneNumber);
+            pStmt.setInt(2,id);
+
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 }
