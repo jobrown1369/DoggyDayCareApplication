@@ -214,7 +214,7 @@ public class DoggyDayCare {
                                 break;
                             }
                             case 4: {
-                                System.out.println("Needs implemented\n");
+                                deleteClockIn();
                                 break;
                             }
                             case 5: {
@@ -266,11 +266,11 @@ public class DoggyDayCare {
                                 break;
                             }
                             case 5: {
-                                System.out.println("Needs implemented\n");
+                                registerFeeding();
                                 break;
                             }
                             case 6: {
-                                System.out.println("Needs implemented\n");
+                                deleteCheckIn();
                                 break;
                             }
                             case 7: {
@@ -442,7 +442,7 @@ public class DoggyDayCare {
             conn.setAutoCommit(false);
 
             // Create a statement and an update query
-            pStmt = conn.prepareStatement("update check_in c set c.play_time = ? where c.K9_ID = ?;");
+            pStmt = conn.prepareStatement("update check_in c set c.play_time = ? where c.K9_ID = ? AND pickup_time IS NULL");
             pStmt.setInt(1,playTime);
             pStmt.setInt(2,k9_id);
             if(pStmt.executeUpdate() > 0){
@@ -454,6 +454,28 @@ public class DoggyDayCare {
         catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    //Method for registering a dog's feeding time during a visit
+    public static void registerFeeding(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter K9_ID for dog to be fed: ");
+        int id = input.nextInt();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("UPDATE check_in SET meal_time = current_time() where K9_ID = ? AND pickup_time IS NULL");
+            pStmt.setInt(1,id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
     //Adds Owner to the DB by asking User for information
@@ -576,7 +598,7 @@ public class DoggyDayCare {
     }
 
     // Method to update our dog table
-    // Updates any tuples where the breed is "Poodle" to the breed "Labrador"
+    // Updates the diet of the specified dog
     public static void updateDogDiet() {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter K9 ID to Update: ");
@@ -640,45 +662,25 @@ public class DoggyDayCare {
 
     }
 
-    // Method that deletes a tuple from the clock_in table in the database
+    // Method that deletes an erroneous entry from the clock_in table in the
+    // database where the Caretaker ID is provided and clock_out is NULL
     public static void deleteClockIn() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter Caretaker ID for entry to erase: ");
+        int id = input.nextInt();
         try {
-            // Load JDBC driver
-            Class.forName(driver);
-
-            // Make a connection
             conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("DELETE FROM clock_in WHERE Employee_ID = ? AND clock_out IS NULL");
+            pStmt.setInt(1,id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
 
-            // Create a statement and a query
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select c.* from clock_in c");
-
-            // Display the query results
-            System.out.println("Before delete: ");
-            System.out.println();
-
-            while (rs.next())
-                System.out.println(rs.getDate("clock_in") + " " + rs.getInt("Employee_ID") + " " +
-                        rs.getInt("Room_Number") + " " + rs.getDate("clock_out"));
-
-            // Create a new query
-            stmt = conn.createStatement();
-            stmt.executeUpdate("delete from clock_in where Employee_ID = 19975");
-
-            // Display the query results of the updated table
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select c.* from clock_in c");
-
-            System.out.println("After delete: ");
-            System.out.println();
-
-            while (rs.next())
-                System.out.println(rs.getDate("clock_in") + " " + rs.getInt("Employee_ID") + " " +
-                        rs.getInt("Room_Number") + " " + rs.getDate("clock_out"));
-            System.out.println();
-        }
-        catch (Exception e) {
-            System.out.println(e);
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 
@@ -704,7 +706,6 @@ public class DoggyDayCare {
         } catch(Exception ex){
             ex.printStackTrace();
         }
-
     }
 
     //Method for caretaker clock-out
@@ -729,6 +730,28 @@ public class DoggyDayCare {
 
     }
 
+    // Method that deletes an erroneous entry from the check_in table in the
+    // database where the K9_ID is provided and pickup_time is NULL
+    public static void deleteCheckIn() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter K9_ID for entry to erase: ");
+        int id = input.nextInt();
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            conn.setAutoCommit(false);
+            pStmt = conn.prepareStatement("DELETE FROM check_in WHERE K9_ID = ? AND pickup_time IS NULL");
+            pStmt.setInt(1,id);
+            if(pStmt.executeUpdate() > 0){
+                System.out.println("Success\n");
+            }
+            pStmt.clearParameters();
+            conn.commit();
+
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
     //Method for dog check-in
     public static void checkIn(){
         Scanner input = new Scanner(System.in);
@@ -739,7 +762,7 @@ public class DoggyDayCare {
         try {
             conn = DriverManager.getConnection(url, user, password);
             conn.setAutoCommit(false);
-            pStmt = conn.prepareStatement("INSERT INTO check_in VALUE(0,?,?,null,current_timestamp(),null,null)");
+            pStmt = conn.prepareStatement("INSERT INTO check_in VALUE(0,?,?,null,current_time(),null,null)");
             pStmt.setInt(1,id);
             pStmt.setString(2,room);
             if(pStmt.executeUpdate() > 0){
